@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Loading...</title>
+
+  <style>
+    /* ================================
+       LOADING SCREEN
+       ================================ */
+
+    #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #ffffff;
+
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+
+      color: #333333;
+
+      z-index: 10000;
+    }
+
+    /* ================================
+       IFRAME
+       ================================ */
+
+    .iframe-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      border: none;
+
+      z-index: 9999;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOADING SCREEN -->
+  <div id="loadingScreen">
+    Loading...
+  </div>
+
+  <script>
+    /* ================================
+       URL PARAMETERS
+       ================================ */
+
+    const params = new URLSearchParams(
+      window.location.search
+    );
+
+    /* ================================
+       GOOGLE APPS SCRIPT URL
+       ================================ */
+
+    let iframeUrl =
+      "https://script.google.com/macros/s/AKfycbwRTK7_qLtneZYjD6O6-TUZvd5nz_E504h-UGLqe5wf0bzgrH9EIvaAyenvo2VeVIec/exec";
+
+    /* ================================
+       ID PARAMETER
+       ================================ */
+
+    if (params.has("id")) {
+      iframeUrl +=
+        "?id=" +
+        encodeURIComponent(
+          params.get("id")
+        );
+    }
+
+    /* ================================
+       CREATE IFRAME
+       ================================ */
+
+    const iframe = document.createElement("iframe");
+
+    iframe.className = "iframe-container";
+
+    iframe.src = iframeUrl;
+
+    iframe.allowFullscreen = true;
+
+    /* ================================
+       WHEN IFRAME LOADS
+       ================================ */
+
+    iframe.addEventListener("load", function () {
+
+      const loading =
+        document.getElementById("loadingScreen");
+
+      if (loading) {
+        loading.style.display = "none";
+      }
+
+    });
+
+    /* ================================
+       ADD IFRAME TO PAGE
+       ================================ */
+
+    document.body.appendChild(iframe);
+  </script>
+
+</body>
+</html>
