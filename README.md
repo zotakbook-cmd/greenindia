@@ -1,4 +1,4 @@
-# GreenIndia
+# greenindia
 
 My GreenIndia project.
 
